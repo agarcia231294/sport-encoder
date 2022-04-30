@@ -12,7 +12,7 @@ class JsonResponse
     const STATUS_REFUSED = "refused";
     const STATUS_NOT_FOUND = "not found";
 
-    static public function response(string $status, string $message = "", array $data = null): HttpJsonResponse
+    static public function response(string $status, string $message = "", array $data = null, int $code = 200): HttpJsonResponse
     {
         $dataResponse = [
             'status' => $status,
@@ -21,6 +21,6 @@ class JsonResponse
         ];
         $dataResponse['message'] = $message;
         $dataResponse['data'] = $data;
-        return response()->json($dataResponse);
+        return response()->json($dataResponse,$code);
     }
 }

@@ -23,7 +23,7 @@ class ApiAuth
         if($this->userCheck($username,$apikey)){
             return $next($request);
         }
-        return JsonResponse::response(JsonResponse::STATUS_REFUSED,"auth failed");
+        return JsonResponse::response(JsonResponse::STATUS_REFUSED,"auth failed",null,401);
     }
 
     private function userCheck($username,$apikey): bool
