@@ -1,0 +1,27 @@
+body {
+    background-color: var(--body-color);
+    font-family     : 'Nunito', sans-serif;
+    color: var(--text-color);
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 4px 10px;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid var(--primary-color);
+    transition: 0.5s all ease;
+    font-weight: 800;
+    border-radius: 4px;
+}
+.btn:hover {
+    background-color: transparent;
+}
+
+.box {
+    background-color: var(--bg-color);
+    padding: 15px;
+    box-shadow: 0px 0px 3px 0px #0000002e;
+    border-radius: 3px;
+}
