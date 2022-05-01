@@ -24,37 +24,15 @@ Route::middleware([ApiAuth::class])->group(function () {
     /** 
      * Sessions Routes
     */
-    Route::get('sessions', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::get('sessions/{id}', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::post('sessions', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::put('sessions/{id}', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::delete('sessions/{id}', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-
+    Route::get(   'sessions',     'SessionController@indexApi');
+    Route::post(  'sessions',     'SessionController@createApi');
+    Route::get(   'sessions/{id}','SessionController@showApi');
+    Route::put(   'sessions/{id}','SessionController@updateApi');
+    Route::delete('sessions/{id}','SessionController@deleteApi');
 
     /** 
      * Distances Routes
     */
-    Route::get('sessions/{id}/distances', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::get('sessions/{id}/distances/stadistics', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::post('sessions/{id}/distances', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
-    Route::delete('sessions/{id}/distances/{timestamp}', function() {
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS, "TODO");
-    });
+    Route::post('sessions/{sesion_id}/distances','DistanceController@createApi');
 
 });

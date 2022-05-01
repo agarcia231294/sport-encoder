@@ -42,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function generateApiKey(): string
+    {
+        $this->api_key = sha1($this->id)."-".uniqid();
+        $this->save();
+        return $this->api_key;
+    }
 }

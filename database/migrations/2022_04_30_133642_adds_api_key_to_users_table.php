@@ -15,6 +15,7 @@ class AddsApiKeyToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('api_key', 60)->unique()->nullable();
+            $table->dropColumn(['apikey']);
         });
     }
 
@@ -27,6 +28,7 @@ class AddsApiKeyToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['api_key']);
+            $table->string('apikey')->nullable();
         });
     }
 }

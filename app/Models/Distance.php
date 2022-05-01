@@ -10,8 +10,10 @@ class Distance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'distance',
+        'cm',
         'timestamp',
         'session_id',
     ];
+
+    public $timestamps = false;
 }

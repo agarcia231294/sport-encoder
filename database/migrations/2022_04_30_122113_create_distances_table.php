@@ -15,7 +15,7 @@ class CreateDistancesTable extends Migration
     {
         Schema::create('distances', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('distance');
+            $table->unsignedInteger('cm');
             $table->unsignedBigInteger('timestamp');
             $table->unsignedBigInteger('session_id');
             $table->foreign('session_id')->references('id')->on('sessions');

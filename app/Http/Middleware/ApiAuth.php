@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Share\JsonResponse;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use stdClass;
@@ -18,21 +19,17 @@ class ApiAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $username = $request->header('user');
         $api_key = $request->header('api_key');
-        if($this->userCheck($username,$api_key)){
+        if($this->userCheck($api_key)){
             return $next($request);
         }
         return JsonResponse::response(JsonResponse::STATUS_REFUSED,"auth failed",null,401);
     }
 
-    private function userCheck($username,$api_key): bool
+    private function userCheck($api_key): bool
     {
-        // TODO userCheck with real users
-        $user = new stdClass;
-        $user->name = "akrian";
-        $user->api_key = "2323232323232323";
-        if($username == $user->name AND $user->api_key == $api_key){
+        $user = User::where('api_key',$api_key)->first();
+        if($user){
             return true;
         }
         return false;
