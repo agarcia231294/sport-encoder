@@ -1,5 +1,37 @@
 nav {
-    background-color: var(--bg-color);
-    padding: 5px;
-    margin-bottom: 20px;
+    background-color: var(--primary-color);
+    padding         : 5px;
+    margin-bottom   : 20px;
+    color           : #fff;
+    font-weight     : 600;
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
+}
+
+.logo {
+    height: 35px;
+}
+
+.logo-container {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    gap: 10px;
+}
+
+nav a {
+    color          : #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+@media screen and (max-width: 375px) {
+    nav {
+        flex-direction: column;
+    }
 }

@@ -23,7 +23,7 @@
         <div class="column">
             <h3>@lang('Already have your Sports Encoder?')</h3>
             <p>@lang('Sign up for free to sync your data to the cloud. You can manage your workouts from your dashboard.')</p>
-            <a class="btn">@lang('Sign up')</a>
+            <a href="{{ route('register') }}" class="btn">@lang('Sign up')</a>
         </div>
     </div>
 

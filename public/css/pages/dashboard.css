@@ -1,0 +1,84 @@
+.shortcuts {
+    display        : flex;
+    align-items    : center;
+    gap            : 20px;
+    justify-content: center;
+    margin-top     : 30px
+}
+
+.shortcuts .item {
+    background-color: var(--primary-color);
+    padding         : 5px;
+    width           : 150px;
+    height          : 100px;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    color           : #fff;
+    font-weight     : bolder;
+    font-size       : 18px;
+    text-align      : center;
+    text-decoration : none;
+    border          : 3px solid var(--primary-color);
+    transition      : 0.5s all ease;
+    border-radius   : 3px;
+}
+
+.shortcuts .item:hover {
+    background-color: transparent;
+    color           : var(--text-color)
+}
+
+.apikey .btn {
+    margin-top: 20px;
+}
+
+.apikey-input {
+    display: block;
+    width  : 100%;
+}
+
+.sessions-list {
+    display  : flex;
+    gap      : 20px;
+    flex-wrap: wrap;
+}
+
+.item-session {
+    background-color: #dbefdc;
+    padding         : 16px;
+    border-radius   : 5px;
+}
+
+.item-session .data {
+    display         : flex;
+    justify-content : space-between;
+    background-color: #ffffff78;
+    margin          : 5px 0;
+    padding         : 1px 10px;
+    align-items     : center;
+}
+
+.item-session .data .label {
+    font-weight: 700;
+}
+
+.item-session .kg-input {
+    border       : 1px solid #ccc;
+    padding      : 5px;
+    border-radius: 5px;
+    width        : 50px;
+}
+
+.item-session .actions {
+    margin-top: 15px;
+    display   : flex;
+    gap       : 5px;
+    flex-wrap : wrap;
+}
+
+@media screen and (max-width: 375px) {
+    .shortcuts {
+        flex-direction: column;
+    }
+}
