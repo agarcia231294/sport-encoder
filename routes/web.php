@@ -29,5 +29,6 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard.home');
 Route::get('dashboard/sessions', [DashboardController::class, 'indexSessions'])->name('dashboard.sessions');
 Route::get('dashboard/sessions/{id}', [DashboardController::class, 'showSession'])->name('dashboard.session');
+Route::get('dashboard/sessions/{id}/graph', [DashboardController::class, 'showGraph'])->name('dashboard.session');
 Route::get('dashboard/apikey', [DashboardController::class, 'apiKey'])->name('dashboard.apikey');
 Route::get('dashboard/apikey/regenerate', [DashboardController::class, 'apiKeyRegenerate'])->name('dashboard.apikey.regenerate');

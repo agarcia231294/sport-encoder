@@ -16,4 +16,9 @@ class Distance extends Model
     ];
 
     public $timestamps = false;
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
 }

@@ -20,4 +20,9 @@ class Session extends Model
         'kg',
         'user_id',
     ];
+
+    public function distances()
+    {
+        return $this->hasMany(Distance::class);
+    }
 }

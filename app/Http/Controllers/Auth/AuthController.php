@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     /**
-     * Write code on Method
      *
      * @return response()
      */
@@ -22,7 +21,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Write code on Method
      *
      * @return response()
      */
@@ -32,7 +30,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Write code on Method
      *
      * @return response()
      */
@@ -53,7 +50,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Write code on Method
      *
      * @return response()
      */
@@ -73,7 +69,6 @@ class AuthController extends Controller
 
 
     /**
-     * Write code on Method
      *
      * @return response()
      */
@@ -89,7 +84,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Write code on Method
      *
      * @return response()
      */
