@@ -14,7 +14,7 @@ class DistanceController extends Controller
     
     public function createApi(Request $request, int $sesion_id): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }

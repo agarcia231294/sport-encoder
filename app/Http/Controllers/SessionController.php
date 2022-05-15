@@ -13,7 +13,7 @@ class SessionController extends Controller
 
     public function indexApi(Request $request): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }
@@ -23,7 +23,7 @@ class SessionController extends Controller
 
     public function createApi(Request $request): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }
@@ -35,7 +35,7 @@ class SessionController extends Controller
 
     public function showApi(Request $request, $id): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }
@@ -48,7 +48,7 @@ class SessionController extends Controller
 
     public function updateApi(Request $request, $id): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }
@@ -63,7 +63,7 @@ class SessionController extends Controller
 
     public function deleteApi(Request $request, $id): HttpJsonResponse
     {
-        $user = User::where('api_key',$request->header('api_key'))->first();
+        $user = User::where('api_key',$request->header('api-key'))->first();
         if(!$user){
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "user not found");
         }
