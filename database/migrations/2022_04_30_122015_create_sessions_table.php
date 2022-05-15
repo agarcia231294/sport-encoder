@@ -15,7 +15,6 @@ class CreateSessionsTable extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('repetitions')->nullable();
             $table->unsignedSmallInteger('max_distance')->nullable();
             $table->unsignedSmallInteger('average_distance')->nullable();
             $table->float('max_speed')->nullable();

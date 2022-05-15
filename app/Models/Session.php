@@ -10,13 +10,10 @@ class Session extends Model
     use HasFactory;
 
     protected $fillable = [
-        'repetitions',
         'max_distance',
         'average_distance',
         'max_speed',
         'average_speed',
-        'max_power',
-        'average_power',
         'kg',
         'user_id',
     ];
