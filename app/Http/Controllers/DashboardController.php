@@ -43,7 +43,7 @@ class DashboardController extends Controller
      *
      * @return response()
      */
-    public function showSession()
+    public function showSession(Request $request, $id)
     {
         if (Auth::check()) {
             return view('pages.dashboard.home');
@@ -56,10 +56,47 @@ class DashboardController extends Controller
      *
      * @return response()
      */
-    public function showGraph()
+    public function showGraph(Request $request, $id)
     {
         if (Auth::check()) {
-            return view('pages.dashboard.graph');
+            $session = Session::where('id',$id)->where('user_id',Auth::id())->firstOrFail();
+            $distances = $session->distances;
+            $time = $distances->map(function ($distance) {
+                $distance->timestamp = $distance->timestamp.' s';
+                return $distance;
+            })->pluck('timestamp')->toArray();
+            $cm = $distances->pluck('cm')->toArray();
+            // $speed =  $distances->map(function ($distance) {
+            //     $distance->speed = $distance->speed*3.6;
+            //     return $distance;
+            // })->pluck('speed')->toArray();     IN KM/H
+            $speed =  $distances->pluck('speed')->toArray(); // in m/s
+            $data = [
+                'labels' => $time,
+                'distances' => $cm,
+                'speed' => $speed,
+                'id'=> $id
+            ];
+            return view('pages.dashboard.graph',$data);
+        }
+
+        return redirect("login")->withSuccess('Opps! You do not have access');
+    }
+
+    /**
+     *
+     * @return response()
+     */
+    public function delete(Request $request, $id){
+        if (Auth::check()) {
+
+            $session = Session::findOrFail($id);
+            $session->distances->each(function($distance){
+                $distance->delete();
+            });
+            $session->delete();
+
+            return redirect(route('dashboard.sessions'));
         }
 
         return redirect("login")->withSuccess('Opps! You do not have access');
@@ -99,21 +136,23 @@ class DashboardController extends Controller
      *
      * @return response()
      */
-    public function generateStadistics(int $session_id): HttpJsonResponse
+    public function generateStadistics(int $id)
     {
         if (!Auth::check()) {
-            return JsonResponse::response(JsonResponse::STATUS_REFUSED,"login required",null,401);
+            return redirect("login")->withSuccess('Opps! You do not have access');
         }
-        $session = Session::where('id',$session_id)->where('user_id',Auth::id())->first();
+        $session = Session::where('id',$id)->where('user_id',Auth::id())->first();
         if(!$session){
-            return JsonResponse::response(JsonResponse::STATUS_REFUSED,"session not allowed",null,401);
+            return redirect(route('dashboard.sessions'));
         }
 
         $this->calculateSpeed($session);
+        $this->calculateSpeedStadistics($session);
+        $this->calculateDistanceStadistics($session);
         //TODO calculate rest
         
 
-        return JsonResponse::response(JsonResponse::STATUS_SUCCESS,"stadistics generated");
+        return redirect(route('dashboard.sessions'));
     }
 
     private function calculateSpeed(Session $session): void
@@ -124,7 +163,7 @@ class DashboardController extends Controller
         $last_sec = 0;
         foreach ($distances as $distance) {
             $meters = $distance->cm / 100;
-            $seconds = $distance->timestamp / 100; //TODO review this
+            $seconds = $distance->timestamp;
 
             if($seconds-$last_sec==0){
                 $speed = 0;
@@ -134,7 +173,37 @@ class DashboardController extends Controller
             $last_m = $meters;
             $last_sec = $seconds;
             $distance->speed = $speed;
+            $distance->save();
         }
     }
+
+    private function calculateDistanceStadistics(Session $session): void
+    {
+        $maxDistance = $session->distances->sortByDesc('cm')->first()->cm;
+        $minDistance = $session->distances->sortBy('cm')->first()->cm;
+
+        $session->max_distance = ($maxDistance-$minDistance);
+
+        $distances = $session->distances->pluck('cm')->toArray();
+        $session->average_distance = array_sum($distances)/count($distances);
+
+        $session->save();
+    }
+
+    private function calculateSpeedStadistics(Session $session): void
+    {
+        $maxSpeed = $session->distances->sortByDesc('speed')->first()->speed;
+        $minSpeed = $session->distances->sortBy('speed')->first()->speed;
+
+        $session->max_speed = ($maxSpeed-$minSpeed);
+
+        $speeds = $session->distances->pluck('speed')->toArray();
+        $session->average_speed = array_sum($speeds)/count($speeds);
+
+        $session->save();
+    }
+
+
+
 
 }

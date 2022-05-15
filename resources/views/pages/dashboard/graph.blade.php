@@ -1,41 +1,65 @@
-@php
-use Amenadiel\JpGraph\Graph;
-use Amenadiel\JpGraph\Plot;
+@extends('layouts.base')
 
-$data1y = [-8, 8, 9, 3, 5, 6];
-$data2y = [18, 2, 1, 7, 5, 4];
+@section('style')
+    <link href="/css/pages/dashboard.css" rel="stylesheet">
+@endsection
 
-// Create the graph. These two calls are always required
-$__width  = 500;
-$__height = 400;
-$graph    = new Graph\Graph($__width, $__height);
-$graph->SetScale('textlin');
+@section('content')
 
-$graph->SetShadow();
-$graph->img->SetMargin(40, 30, 20, 40);
+<h1>@lang('Session :id',['id'=>$id])</h1>
 
-// Create the bar plots
-$b1plot = new Plot\BarPlot($data1y);
-$b1plot->SetFillColor('orange');
-$b1plot->value->Show();
-$b2plot = new Plot\BarPlot($data2y);
-$b2plot->SetFillColor('blue');
-$b2plot->value->Show();
+<main class="box">
 
-// Create the grouped bar plot
-$gbplot = new Plot\AccBarPlot([$b1plot, $b2plot]);
+    <canvas id="myChart" width="400" height="200"></canvas>
 
-// ...and add it to the graPH
-$graph->Add($gbplot);
+</main>
+    <a class="btn" href="{{ route('dashboard.sessions') }}">@lang('Back')</a>
 
-$graph->title->Set('Accumulated bar plots');
-$graph->xaxis->title->Set('X-title');
-$graph->yaxis->title->Set('Y-title');
+@endsection
 
-$graph->title->SetFont(FF_FONT1, FS_BOLD);
-$graph->yaxis->title->SetFont(FF_FONT1, FS_BOLD);
-$graph->xaxis->title->SetFont(FF_FONT1, FS_BOLD);
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"
+        integrity="sha256-ErZ09KkZnzjpqcane4SCyyHsKAXMvID9/xwbl/Aq1pc="
+        crossorigin="anonymous"></script>
 
-// Display the graph
-$graph->Stroke();
-@endphp
+<script>
+    const ctx = document.getElementById("myChart").getContext("2d");
+
+    const data = {
+        labels: {!! json_encode($labels,0) !!},
+        datasets: [
+            @if($distances)
+            {
+                label: "Distance (cm)",
+                data: {!! json_encode($distances) !!},
+                fill: false,
+                borderColor: "#4BC0C0",
+                tension: 0.1
+            },
+            @endif
+            @if($speed)
+            {
+                label: "Speed (m/s)",
+                data: {!! json_encode($speed) !!},
+                fill: false,
+                borderColor: "#4bc086",
+                tension: 0.1
+            },
+            @endif
+        ]
+    };
+
+    const myChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
+@endsection

@@ -18,11 +18,8 @@ class CreateSessionsTable extends Migration
             $table->unsignedSmallInteger('repetitions')->nullable();
             $table->unsignedSmallInteger('max_distance')->nullable();
             $table->unsignedSmallInteger('average_distance')->nullable();
-            $table->unsignedSmallInteger('max_speed')->nullable();
-            $table->unsignedSmallInteger('average_speed')->nullable();
-            $table->unsignedSmallInteger('max_power')->nullable();
-            $table->unsignedSmallInteger('average_power')->nullable();
-            $table->unsignedSmallInteger('kg')->nullable();
+            $table->float('max_speed')->nullable();
+            $table->float('average_speed')->nullable();
             $table->boolean('calculated');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

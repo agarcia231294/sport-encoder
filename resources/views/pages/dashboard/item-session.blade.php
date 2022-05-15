@@ -5,18 +5,12 @@
     <div class="data"><span class="label">@lang('Avg. distance'):</span> {{ $session->average_distance }} cm</div>
     <div class="data"><span class="label">@lang('Max. Speed'):</span> {{ $session->max_speed }} m/s</div>
     <div class="data"><span class="label">@lang('Avg. Speed'):</span> {{ $session->average_speed }} m/s</div>
-    <div class="data"><span class="label">@lang('Max. Power'):</span> {{ $session->max_power }} Watts</div>
-    <div class="data"><span class="label">@lang('Avg. Power'):</span> {{ $session->average_power }} Watts</div>
-    <div class="data">
-        <span class="label">@lang('KG'):</span>
-        <div>
-            <input class="kg-input" type="number" value="{{ $session->kg }}">
-            <button class="btn">@lang('Save')</button>
-        </div>
-    </div>
     <div class="actions">
-        <button class="btn">@lang('Calculate statistics')</button>
-        <button class="btn gray">@lang('See graph')</button>
-        <button class="btn red">@lang('Delete')</button>
+        @if(is_null($session->max_distance) OR is_null($session->average_distance) OR is_null($session->max_speed) OR is_null($session->average_speed))
+        <a class="btn" href="{{ route('dashboard.session.generateStadistics', ['id'=>$session->id]) }}">@lang('Calculate statistics')</a>
+        @else
+        <a class="btn gray" href="{{ route('dashboard.session.graph', ['id'=>$session->id]) }}">@lang('See graph')</a>
+        @endif
+        <a class="btn red" href="{{ route('dashboard.session.delete', ['id'=>$session->id]) }}" onclick="return confirm(`{{ __('Are you sure?') }}`)">@lang('Delete')</a>
     </div>
 </div>

@@ -18,7 +18,7 @@
         <div class="column">
             <h3>@lang('What is the Sports Encoder?')</h3>
             <p>@lang('Record your training sessions to monitor your condition and progress. Get the data you need.')</p>
-            <a class="btn">@lang('Order now')</a>
+            <a href="{{ route('order') }}" class="btn">@lang('Order now')</a>
         </div>
         <div class="column">
             <h3>@lang('Already have your Sports Encoder?')</h3>
