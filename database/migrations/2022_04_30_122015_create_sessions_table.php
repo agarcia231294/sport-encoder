@@ -20,7 +20,6 @@ class CreateSessionsTable extends Migration
             $table->unsignedSmallInteger('average_distance')->nullable();
             $table->float('max_speed')->nullable();
             $table->float('average_speed')->nullable();
-            $table->boolean('calculated');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
