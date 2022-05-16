@@ -19,7 +19,7 @@ class ApiAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $api_key = $request->header('api_key');
+        $api_key = $request->header('api-key');
         if($this->userCheck($api_key)){
             return $next($request);
         }
