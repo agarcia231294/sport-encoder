@@ -62,7 +62,7 @@ class DashboardController extends Controller
             $session = Session::where('id',$id)->where('user_id',Auth::id())->firstOrFail();
             $distances = $session->distances;
             $time = $distances->map(function ($distance) {
-                $distance->timestamp = ($distance->timestamp/1000).' s';
+                $distance->timestamp = round($distance->timestamp/1000).' s';
                 return $distance;
             })->pluck('timestamp')->toArray();
             $cm = $distances->pluck('cm')->toArray();
