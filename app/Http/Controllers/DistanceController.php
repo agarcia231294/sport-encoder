@@ -29,7 +29,8 @@ class DistanceController extends Controller
         $timestamp = $request->get('timestamp');
 
         Log::debug("createApi");
-        Log::debug($request->all());
+        Log::debug($_REQUEST);
+        Log::debug($_POST);
 
         $distance = Distance::create([
             'cm' => $cm,
