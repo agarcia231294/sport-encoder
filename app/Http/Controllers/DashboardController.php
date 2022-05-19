@@ -66,11 +66,11 @@ class DashboardController extends Controller
                 return $distance;
             })->pluck('timestamp')->toArray();
             $cm = $distances->pluck('cm')->toArray();
-            // $speed =  $distances->map(function ($distance) {
-            //     $distance->speed = $distance->speed*3.6;
-            //     return $distance;
-            // })->pluck('speed')->toArray();     IN KM/H
-            $speed =  $distances->pluck('speed')->toArray(); // in m/s
+            $speed =  $distances->map(function ($distance) {
+                $distance->speed = $distance->speed*3.6;
+                return $distance;
+            })->pluck('speed')->toArray();//     IN KM/H
+            //$speed =  $distances->pluck('speed')->toArray(); // in m/s
             $data = [
                 'labels' => $time,
                 'distances' => $cm,
