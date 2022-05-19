@@ -8,6 +8,7 @@ use App\Models\Session;
 use App\Models\User;
 use Illuminate\Http\JsonResponse as HttpJsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DistanceController extends Controller
 {
@@ -26,6 +27,9 @@ class DistanceController extends Controller
 
         $cm = $request->get('cm');
         $timestamp = $request->get('timestamp');
+
+        Log::debug("createApi");
+        Log::debug($request->all());
 
         $distance = Distance::create([
             'cm' => $cm,
