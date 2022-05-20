@@ -25,13 +25,10 @@ class DistanceController extends Controller
             return JsonResponse::response(JsonResponse::STATUS_NOT_FOUND, "session not found");
         }
 
-        $cm = $request->get('cm');
-        $timestamp = $request->get('timestamp');
+        $cm = $request->get('c');
+        $timestamp = $request->get('t');
 
         Log::debug("createApi");
-        Log::debug($_REQUEST);
-        Log::debug($_POST);
-        Log::debug($_SERVER);
         Log::debug($request);
 
         $distance = Distance::create([
