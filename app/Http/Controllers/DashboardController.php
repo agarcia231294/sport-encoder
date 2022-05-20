@@ -204,7 +204,7 @@ class DashboardController extends Controller
             $distance->speed = $speed;
 
             // acceleration = (Speed_finish - Speed_start) / time
-            $acceleration = ($speed - $last_speed) / $seconds-$last_sec; // m/s^2
+            $acceleration = ($speed - $last_speed) / ($seconds-$last_sec); // m/s^2
             $distance->acceleration = $acceleration;
             
             $kg = $session->kg;
