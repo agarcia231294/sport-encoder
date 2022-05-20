@@ -39,7 +39,7 @@
             @endif
             @if($speed)
             {
-                label: "Speed (m/s)",
+                label: "Speed (km/h)",
                 data: {!! json_encode($speed) !!},
                 fill: false,
                 borderColor: "#4bc086",
