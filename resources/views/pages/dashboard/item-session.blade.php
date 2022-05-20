@@ -11,7 +11,7 @@
     <div class="data"><span class="label">@lang('Avg. Force'):</span> {{ $session->avg_force }} N</div>
     <div class="data"><span class="label">@lang('Max. Power'):</span> {{ $session->max_power }} W</div>
     <div class="data"><span class="label">@lang('Avg. Power'):</span> {{ $session->avg_power }} W</div>
-    <div class="data"><span class="label">@lang('Kg'):</span> <input type="number" step="any" class="kg-input" > KG</div>
+    <div class="data"><span class="label">@lang('Kg'):</span> <input type="number" step="any" class="kg-input" value="{{$session->kg}}"> KG</div>
     <div class="actions">
         <a class="btn" id="calculate{{$session->id}}" href="{{ route('dashboard.session.generateStadistics', ['id'=>$session->id, 'kg'=> -1]) }}" onclick="setKG('calculate{{$session->id}}')">@lang('Calculate statistics')</a>
         @if(!(is_null($session->max_distance) OR is_null($session->average_distance) OR is_null($session->max_speed) OR is_null($session->average_speed)))
