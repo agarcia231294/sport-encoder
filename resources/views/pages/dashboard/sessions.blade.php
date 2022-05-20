@@ -25,8 +25,9 @@ const setKG = id => {
     let href = btn.getAttribute("href");
     const kg = btn.closest(".item-session").querySelector('.kg-input').value;
     if(kg){
-        href.replace("-1",kg);
+        href = href.replace("-1",kg);
         btn.setAttribute("href",href);
+        alert(kg);
         alert(href);
     }
     alert(href);
