@@ -23,7 +23,7 @@ const setKG = id => {
     console.log("calculate stadistics");
     const btn = document.getElementById(id);
     let href = btn.getAttribute("href");
-    const kg = btn.closest("item-session").querySelector('kg-input').value();
+    const kg = btn.closest(".item-session").querySelector('.kg-input').value();
     if(kg){
         href.replace("-1",kg);
         btn.getAttribute("href",kg);
