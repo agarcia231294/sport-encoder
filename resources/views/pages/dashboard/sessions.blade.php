@@ -27,10 +27,7 @@ const setKG = id => {
     if(kg){
         href = href.replace("-1",kg);
         btn.setAttribute("href",href);
-        alert(kg);
-        alert(href);
     }
-    alert(href);
 }
 
 </script>

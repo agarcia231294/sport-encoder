@@ -168,7 +168,6 @@ class DashboardController extends Controller
         if(!$session){
             return redirect(route('dashboard.sessions'));
         }
-        // TODO set kg
         if($kg>0){
             $session->kg = $kg;
             $session->save();
