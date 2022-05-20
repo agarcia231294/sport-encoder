@@ -65,9 +65,11 @@ class DashboardController extends Controller
             $distances = $distances->sortBy('timestamp');
 
             $distances = $distances->map(function ($distance) {
-                $distance->timestamp = round($distance->timestamp/1000,1).' s';
+                $distance->timestamp = round($distance->timestamp/1000,2).' s';
                 return $distance;
-            });            
+            });
+            $distances = $distances->unique('timestamp');
+            
             
             // $distances = $distances->map(function ($distance) {
             //     $distance->speed = $distance->speed*3.6;
