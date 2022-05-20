@@ -19,14 +19,14 @@
 </main>
 
 <script>
-const setKG = e => {
+const setKG = id => {
     console.log("calculate stadistics");
-
-    let href = this.getAttribute("href");
-    const kg = this.closest("item-session").querySelector('kg-input').value();
+    const btn = document.getElementById(id);
+    let href = btn.getAttribute("href");
+    const kg = btn.closest("item-session").querySelector('kg-input').value();
     if(kg){
         href.replace("-1",kg);
-        this.getAttribute("href",kg);
+        btn.getAttribute("href",kg);
     }
 }
 

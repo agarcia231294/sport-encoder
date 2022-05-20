@@ -48,10 +48,10 @@
             @endif
             @if($acceleration)
             {
-                label: "Acceleration (m/s<sup>2</sup>)",
+                label: "Acceleration (m/s²)",
                 data: {!! json_encode($acceleration) !!},
                 fill: false,
-                borderColor: "#a64d79",
+                borderColor: "#674ea7",
                 tension: 0.1
             },
             @endif
