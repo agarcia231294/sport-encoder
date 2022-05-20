@@ -61,26 +61,34 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $session = Session::where('id',$id)->where('user_id',Auth::id())->firstOrFail();
             $distances = $session->distances;
-            $distances = $distances->sortByDesc('timestamp');
+
+            $distances = $distances->sortBy('timestamp');
+
             $distances = $distances->map(function ($distance) {
                 $distance->timestamp = round($distance->timestamp/1000,1).' s';
                 return $distance;
             });
             $distances = $distances->unique('timestamp');
             
+            
             $distances = $distances->map(function ($distance) {
                 $distance->speed = $distance->speed*3.6;
                 return $distance;
             });//     IN KM/H
+            
+            $distances = $distances->map(function ($distance) {
+                $distance->m = $distance->cm/100;
+                return $distance;
+            });//     IN M
 
 
-            $cm = $distances->pluck('cm')->toArray();
+            $m = $distances->pluck('m')->toArray();
             $time = $distances->pluck('timestamp')->toArray();
             $speed =  $distances->pluck('speed')->toArray(); // in m/s
 
             $data = [
                 'labels' => $time,
-                'distances' => $cm,
+                'distances' => $m,
                 'speed' => $speed,
                 'id'=> $id
             ];
