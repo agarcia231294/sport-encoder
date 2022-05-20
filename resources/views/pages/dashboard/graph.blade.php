@@ -46,6 +46,33 @@
                 tension: 0.1
             },
             @endif
+            @if($acceleration)
+            {
+                label: "Acceleration (m/s<sup>2</sup>)",
+                data: {!! json_encode($acceleration) !!},
+                fill: false,
+                borderColor: "#a64d79",
+                tension: 0.1
+            },
+            @endif
+            @if($force)
+            {
+                label: "Force (Newtons)",
+                data: {!! json_encode($force) !!},
+                fill: false,
+                borderColor: "#f1c232",
+                tension: 0.1
+            },
+            @endif
+            @if($power)
+            {
+                label: "Power (Watts)",
+                data: {!! json_encode($power) !!},
+                fill: false,
+                borderColor: "#cc0000",
+                tension: 0.1
+            },
+            @endif
         ]
     };
 

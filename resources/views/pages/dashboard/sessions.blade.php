@@ -18,4 +18,18 @@
 
 </main>
 
+<script>
+const setKG = e => {
+    console.log("calculate stadistics");
+
+    let href = this.getAttribute("href");
+    const kg = this.closest("item-session").querySelector('kg-input').value();
+    if(kg){
+        href.replace("-1",kg);
+        this.getAttribute("href",kg);
+    }
+}
+
+</script>
+
 @endsection

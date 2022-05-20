@@ -82,16 +82,24 @@ class DashboardController extends Controller
             });//     IN M
 
 
-            $m = $distances->pluck('m')->toArray();
-            $time = $distances->pluck('timestamp')->toArray();
+            $m = $distances->pluck('m')->toArray(); // in meters
+            $time = $distances->pluck('timestamp')->toArray(); // in seconds
             $speed =  $distances->pluck('speed')->toArray(); // in m/s
+            $acceleration =  $distances->pluck('acceleration')->toArray(); // in m/s^2
+            $force =  $distances->pluck('force')->toArray(); // in newtons
+            $power =  $distances->pluck('power')->toArray(); // in watts
 
             $data = [
                 'labels' => $time,
                 'distances' => $m,
                 'speed' => $speed,
-                'id'=> $id
+                'id'=> $id,
+                'acceleration' => $acceleration,
+                'force' => $force,
+                'power' => $power,
             ];
+
+
             return view('pages.dashboard.graph',$data);
         }
 
@@ -151,7 +159,7 @@ class DashboardController extends Controller
      *
      * @return response()
      */
-    public function generateStadistics(int $id)
+    public function generateStadistics(int $id, float $kg)
     {
         if (!Auth::check()) {
             return redirect("login")->withSuccess('Opps! You do not have access');
@@ -160,26 +168,29 @@ class DashboardController extends Controller
         if(!$session){
             return redirect(route('dashboard.sessions'));
         }
-
-        $this->calculateSpeed($session);
+        // TODO set kg
+        if($kg>0){
+            $session->kg = $kg;
+            $session->save();
+        }
+        // TODO check exists distances
+        $this->calculateDistanceMeasures($session);
         $this->calculateSpeedStadistics($session);
         $this->calculateDistanceStadistics($session);
-        //TODO calculate rest
-
-        // acceleration = (V_final - V_inicail) / time
-        // force = mass x acceleration
-        // power = force x speed
+        $this->calculateAccelerationStadistics($session);
+        $this->calculateForceStadistics($session);
+        $this->calculatePowerStadistics($session);
         
-
         return redirect(route('dashboard.sessions'));
     }
 
-    private function calculateSpeed(Session $session): void
+    private function calculateDistanceMeasures(Session $session): void
     {
         $distances = $session->distances->sortBy('timestamp');
         
         $last_m = 0;
         $last_sec = 0;
+        $last_speed = 0;
         foreach ($distances as $distance) {
             $meters = $distance->cm / 100;
             $seconds = $distance->timestamp / 1000;
@@ -187,11 +198,28 @@ class DashboardController extends Controller
             if($seconds-$last_sec==0){
                 $speed = 0;
             }else{
-                $speed = abs(($meters-$last_m) / ($seconds-$last_sec));
+                // speed = distance / time
+                $speed = abs(($meters-$last_m) / ($seconds-$last_sec)); // m/s
             }
+            $distance->speed = $speed;
+
+            // acceleration = (Speed_finish - Speed_start) / time
+            $acceleration = ($speed - $last_speed) / $seconds-$last_sec; // m/s^2
+            $distance->acceleration = $acceleration;
+            
+            $kg = $session->kg;
+            if($kg){
+                // force = mass x acceleration
+                $force = $kg * $acceleration; // Newtons
+                $distance->force = $force;
+
+                // power = force x speed
+                $power = $force * $speed; // Watts
+                $distance->power = $power;
+            }
+
             $last_m = $meters;
             $last_sec = $seconds;
-            $distance->speed = $speed;
             $distance->save();
         }
     }
@@ -218,6 +246,49 @@ class DashboardController extends Controller
 
         $speeds = $session->distances->pluck('speed')->toArray();
         $session->average_speed = array_sum($speeds)/count($speeds);
+
+        $session->save();
+    }
+
+    private function calculateAccelerationStadistics(Session $session): void
+    {
+        $max_acceleration = $session->distances->sortByDesc('acceleration')->first()->acceleration;
+        $min_acceleration = $session->distances->sortBy('acceleration')->first()->acceleration;
+
+        $session->max_acceleration = ($max_acceleration-$min_acceleration);
+
+        $accelerations = $session->distances->pluck('acceleration')->toArray();
+        $session->avg_acceleration = array_sum($accelerations)/count($accelerations);
+
+        $session->save();
+    }
+    private function calculateForceStadistics(Session $session): void
+    {
+        if(!$session->kg){
+            return;
+        }
+        $max_force = $session->distances->sortByDesc('force')->first()->force;
+        $min_force = $session->distances->sortBy('force')->first()->force;
+
+        $session->max_force = ($max_force-$min_force);
+
+        $forces = $session->distances->pluck('force')->toArray();
+        $session->avg_force = array_sum($forces)/count($forces);
+
+        $session->save();
+    }
+    private function calculatePowerStadistics(Session $session): void
+    {
+        if(!$session->kg){
+            return;
+        }
+        $max_power = $session->distances->sortByDesc('power')->first()->power;
+        $min_power = $session->distances->sortBy('power')->first()->power;
+
+        $session->max_power = ($max_power-$min_power);
+
+        $powers = $session->distances->pluck('power')->toArray();
+        $session->avg_power = array_sum($powers)/count($powers);
 
         $session->save();
     }
