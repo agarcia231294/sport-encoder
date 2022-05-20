@@ -165,6 +165,10 @@ class DashboardController extends Controller
         $this->calculateSpeedStadistics($session);
         $this->calculateDistanceStadistics($session);
         //TODO calculate rest
+
+        // acceleration = (V_final - V_inicail) / time
+        // force = mass x acceleration
+        // power = force x speed
         
 
         return redirect(route('dashboard.sessions'));
