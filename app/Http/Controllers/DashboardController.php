@@ -59,6 +59,9 @@ class DashboardController extends Controller
     public function showGraph(Request $request, $id)
     {
         if (Auth::check()) {
+            $init = $request->get('init');
+            $end = $request->get('end');
+
             $session = Session::where('id',$id)->where('user_id',Auth::id())->firstOrFail();
             $distances = $session->distances;
 
@@ -70,6 +73,23 @@ class DashboardController extends Controller
                 return $distance;
             });
             $distances = $distances->unique('timestamp');
+
+            if($init){
+                $distances = $distances->filter(function ($distance) use($init){
+                    if($init>=$distance->timestamp){
+                        return true;
+                    }
+                    return false;
+                });
+            }
+            if($end){
+                $distances = $distances->filter(function ($distance) use($end){
+                    if($end<=$distance->timestamp){
+                        return true;
+                    }
+                    return false;
+                });
+            }
             
             
             // $distances = $distances->map(function ($distance) {
