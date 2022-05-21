@@ -10,11 +10,13 @@
 
 <main class="box">
 
-    <div>
+    <form>
         <div style="font-size:18px;">@lang('Filter by time'):</div>
-        <div>@lang('Init') <input type="number" step="any" value="{{ app('request')->input('init') }}">@lang('seconds')</div>
-        <div>@lang('End') <input type="number" step="any" value="{{ app('request')->input('end') }}">@lang('seconds')</div>
-    </div>
+        <div>@lang('Init') <input style="width:50px" type="number" step="any" name="init" value="{{ app('request')->input('init') }}">@lang('seconds')</div>
+        <div>@lang('End') <input style="width:50px" type="number" step="any" name="end" value="{{ app('request')->input('end') }}">@lang('seconds')</div>
+        <button class="btn" type="submit">@lang('Filter')</button>
+        <br>
+    </form>
 
     <canvas id="myChart" width="400" height="200"></canvas>
 
