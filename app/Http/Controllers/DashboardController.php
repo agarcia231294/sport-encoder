@@ -217,9 +217,11 @@ class DashboardController extends Controller
                 $distance->power = $power;
             }
 
-            $last_m = $meters;
-            $last_sec = $seconds;
-            $last_speed = $speed;
+            if(($seconds-$last_sec)>0.1){
+                $last_m = $meters;
+                $last_sec = $seconds;
+                $last_speed = $speed;
+            }
             $distance->save();
         }
     }
