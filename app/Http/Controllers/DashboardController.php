@@ -199,7 +199,6 @@ class DashboardController extends Controller
             $session->kg = $kg;
             $session->save();
         }
-        // TODO check exists distances
         $this->calculateDistanceMeasures($session);
         $this->calculateSpeedStadistics($session);
         $this->calculateDistanceStadistics($session);

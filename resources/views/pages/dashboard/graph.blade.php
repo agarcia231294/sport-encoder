@@ -14,6 +14,7 @@
         <div style="font-size:18px;">@lang('Filter by time'):</div>
         <div>@lang('Init') <input style="width:50px" type="number" step="any" name="init" value="{{ app('request')->input('init') }}">@lang('seconds')</div>
         <div>@lang('End') <input style="width:50px" type="number" step="any" name="end" value="{{ app('request')->input('end') }}">@lang('seconds')</div>
+        <br>
         <button class="btn" type="submit">@lang('Filter')</button>
         <br>
     </form>
