@@ -71,10 +71,15 @@ class DashboardController extends Controller
             $distances = $distances->unique('timestamp');
             
             
+            // $distances = $distances->map(function ($distance) {
+            //     $distance->speed = $distance->speed*3.6;
+            //     return $distance;
+            // });//     IN KM/H
+
             $distances = $distances->map(function ($distance) {
-                $distance->speed = $distance->speed*3.6;
+                $distance->speed = $distance->speed*100;
                 return $distance;
-            });//     IN KM/H
+            });//     IN CM/S
             
             $distances = $distances->map(function ($distance) {
                 $distance->m = $distance->cm/100;
