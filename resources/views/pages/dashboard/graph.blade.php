@@ -12,8 +12,8 @@
 
     <div>
         <div style="font-size:18px;">@lang('Filter by time'):</div>
-        <div>@lang('Init') <input type="number" step="any">{{ app('request')->input('init') }} @lang('seconds')</div>
-        <div>@lang('End') <input type="number" step="any">{{ app('request')->input('end') }} @lang('seconds')</div>
+        <div>@lang('Init') <input type="number" step="any" value="{{ app('request')->input('init') }}">@lang('seconds')</div>
+        <div>@lang('End') <input type="number" step="any" value="{{ app('request')->input('end') }}">@lang('seconds')</div>
     </div>
 
     <canvas id="myChart" width="400" height="200"></canvas>
