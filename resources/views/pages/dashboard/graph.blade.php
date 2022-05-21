@@ -30,7 +30,7 @@
         datasets: [
             @if($distances)
             {
-                label: "Distance (m)",
+                label: "Distance (cm)",
                 data: {!! json_encode($distances) !!},
                 fill: false,
                 borderColor: "#4BC0C0",
@@ -39,7 +39,7 @@
             @endif
             @if($speed)
             {
-                label: "Speed (m/s)",
+                label: "Speed (km/h)",
                 data: {!! json_encode($speed) !!},
                 fill: false,
                 borderColor: "#4bc086",
