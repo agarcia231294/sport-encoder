@@ -198,7 +198,7 @@ class DashboardController extends Controller
                 $speed = 0;
             }else{
                 // speed = distance / time
-                $speed = abs(($meters-$last_m) / ($seconds-$last_sec)); // m/s
+                $speed = ($meters-$last_m) / ($seconds-$last_sec); // m/s
             }
             $distance->speed = $speed;
 
