@@ -76,7 +76,7 @@ class DashboardController extends Controller
 
             if($init){
                 $distances = $distances->filter(function ($distance) use($init){
-                    if($init>=$distance->timestamp){
+                    if($init<=$distance->timestamp){
                         return true;
                     }
                     return false;
@@ -84,7 +84,7 @@ class DashboardController extends Controller
             }
             if($end){
                 $distances = $distances->filter(function ($distance) use($end){
-                    if($end<=$distance->timestamp){
+                    if($end>=$distance->timestamp){
                         return true;
                     }
                     return false;
