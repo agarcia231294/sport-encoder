@@ -213,7 +213,7 @@ class DashboardController extends Controller
                 $distance->force = $force;
 
                 // power = force x speed
-                $power = $force * $speed; // Watts
+                $power = $force * abs($speed); // Watts
                 $distance->power = $power;
             }
 
