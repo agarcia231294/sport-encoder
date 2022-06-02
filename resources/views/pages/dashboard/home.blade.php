@@ -18,10 +18,6 @@
             @lang('Sessions')
         </a>
     
-        <a class="item" href="{{ '' }}">
-            @lang('How to use')
-        </a>
-    
         <a class="item" href="{{ route('dashboard.apikey') }}">
             @lang('Get API Key')
         </a>
