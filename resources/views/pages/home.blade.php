@@ -16,12 +16,12 @@
     </div>
     <div class="content">
         <div class="column">
-            <h3>@lang('What is the Sports Encoder?')</h3>
+            <h3>@lang('What is the Sportino Encoder?')</h3>
             <p>@lang('Record your training sessions to monitor your condition and progress. Get the data you need.')</p>
             <a href="{{ route('order') }}" class="btn">@lang('Order now')</a>
         </div>
         <div class="column">
-            <h3>@lang('Already have your Sports Encoder?')</h3>
+            <h3>@lang('Already have your Sportino Encoder?')</h3>
             <p>@lang('Sign up for free to sync your data to the cloud. You can manage your workouts from your dashboard.')</p>
             <a href="{{ route('register') }}" class="btn">@lang('Sign up')</a>
         </div>
