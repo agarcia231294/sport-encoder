@@ -24,11 +24,11 @@ Route::middleware([ApiAuth::class])->group(function () {
     /** 
      * Sessions Routes
     */
-    Route::get(   'sessions',     'SessionController@indexApi');
     Route::post(  'sessions',     'SessionController@createApi');
-    Route::get(   'sessions/{id}','SessionController@showApi');
-    Route::put(   'sessions/{id}','SessionController@updateApi');
-    Route::delete('sessions/{id}','SessionController@deleteApi');
+    // Route::get(   'sessions',     'SessionController@indexApi');
+    // Route::get(   'sessions/{id}','SessionController@showApi');
+    // Route::put(   'sessions/{id}','SessionController@updateApi');
+    // Route::delete('sessions/{id}','SessionController@deleteApi');
 
     /** 
      * Distances Routes

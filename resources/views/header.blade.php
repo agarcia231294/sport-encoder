@@ -2,7 +2,7 @@
 
     <a class="logo-container" href="{{ route('home') }}">
         <img class="logo" src="/images/logo.png" alt="LOGO">
-        @lang('Sports Encoder App')
+        @lang('Sportino Encoder App')
     </a>
 
     <div>

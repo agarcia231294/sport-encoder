@@ -11,7 +11,7 @@
 
 <main class="box">
     <div class="titles">
-        <h1>@lang('Sports encoder APP')</h1>
+        <h1>@lang('Sportino encoder APP')</h1>
         <h2>@lang('Welcome to the sports revolution')</h2>
     </div>
     <div class="content">
